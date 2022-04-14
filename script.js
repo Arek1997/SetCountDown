@@ -50,6 +50,14 @@ const startCounting = function () {
   counter.sec = 0;
 };
 
+const reset = function () {
+  if (running === true) running = false;
+  time = 0;
+  clearInterval(counterTimer);
+  timer.textContent = "00:00:00";
+  stopBtn.textContent = "Stop";
+};
+
 goBtn.addEventListener("click", function () {
   if (inputHour.value >= 0) {
     counter.hour = Math.trunc(+`${inputHour.value}`);
@@ -71,9 +79,11 @@ goBtn.addEventListener("click", function () {
   }
 
   clearInterval(counterTimer);
+
   // && inputHour.value <= 60
   // && inputMin.value <= 60
   // && inputSec.value <= 60
+  reset();
   startCounting();
 });
 
@@ -89,9 +99,5 @@ stopBtn.addEventListener("click", function () {
 });
 
 resetBtn.addEventListener("click", function () {
-  if (running === true) running = false;
-  time = 0;
-  clearInterval(counterTimer);
-  timer.textContent = "00:00:00";
-  stopBtn.textContent = "Stop";
+  reset();
 });
