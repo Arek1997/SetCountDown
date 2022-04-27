@@ -4,9 +4,9 @@ const resetBtn = document.querySelector(".btn-reset");
 const stopBtn = document.querySelector(".btn-stop");
 const goBtn = document.querySelector(".btn-go");
 
-const inputHour = document.querySelector(".input-hour");
-const inputMin = document.querySelector(".input-min");
-const inputSec = document.querySelector(".input-sec");
+const input_hour = document.querySelector(".input-hour");
+const input_min = document.querySelector(".input-min");
+const input_sec = document.querySelector(".input-sec");
 
 // const defaultTime = "00:00:00";
 // timer.textContent = defaultTime;
@@ -33,6 +33,7 @@ const startCounting = function () {
       if (time === 0) {
         clearInterval(counterTimer);
         running;
+        goBtn.disabled = false;
       }
 
       time--;
@@ -56,26 +57,25 @@ const reset = function () {
   clearInterval(counterTimer);
   timer.textContent = "00:00:00";
   stopBtn.textContent = "Stop";
+  input_hour.value = input_min.value = input_sec.value = "";
+  goBtn.disabled = false;
 };
 
 goBtn.addEventListener("click", function () {
-  if (inputHour.value >= 0) {
-    counter.hour = Math.trunc(+`${inputHour.value}`);
-    inputHour.value = "";
-  } else if (inputHour.value < 0) {
-    inputHour.value = "";
+  if (input_hour.value >= 0) {
+    counter.hour = Math.trunc(+`${input_hour.value}`);
+  } else if (input_hour.value < 0) {
+    input_hour.value = "";
   }
-  if (inputMin.value >= 0) {
-    counter.min = Math.trunc(+`${inputMin.value}`);
-    inputMin.value = "";
-  } else if (inputMin.value < 0) {
-    inputMin.value = "";
+  if (input_min.value >= 0) {
+    counter.min = Math.trunc(+`${input_min.value}`);
+  } else if (input_min.value < 0) {
+    input_min.value = "";
   }
-  if (inputSec.value >= 0) {
-    counter.sec = Math.trunc(+`${inputSec.value}`);
-    inputSec.value = "";
-  } else if (inputSec.value < 0) {
-    inputSec.value = "";
+  if (input_sec.value >= 0) {
+    counter.sec = Math.trunc(+`${input_sec.value}`);
+  } else if (input_sec.value < 0) {
+    input_sec.value = "";
   }
 
   clearInterval(counterTimer);
@@ -85,6 +85,7 @@ goBtn.addEventListener("click", function () {
   // && inputSec.value <= 60
   reset();
   startCounting();
+  if (timer.textContent !== "00:00:00") goBtn.disabled = true;
 });
 
 stopBtn.addEventListener("click", function () {
