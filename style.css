@@ -63,3 +63,8 @@ body {
   border-style: none;
   cursor: pointer;
 }
+
+.disable {
+  cursor: not-allowed;
+  color: rgb(66, 63, 63);
+}

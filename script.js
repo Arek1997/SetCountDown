@@ -34,6 +34,7 @@ const startCounting = function () {
         clearInterval(counterTimer);
         running;
         goBtn.disabled = false;
+        goBtn.classList.remove("disable");
       }
 
       time--;
@@ -59,6 +60,7 @@ const reset = function () {
   stopBtn.textContent = "Stop";
   input_hour.value = input_min.value = input_sec.value = "";
   goBtn.disabled = false;
+  goBtn.classList.remove("disable");
 };
 
 goBtn.addEventListener("click", function () {
@@ -85,7 +87,10 @@ goBtn.addEventListener("click", function () {
   // && inputSec.value <= 60
   reset();
   startCounting();
-  if (timer.textContent !== "00:00:00") goBtn.disabled = true;
+  if (timer.textContent !== "00:00:00") {
+    goBtn.disabled = true;
+    goBtn.classList.add("disable");
+  }
 });
 
 stopBtn.addEventListener("click", function () {
