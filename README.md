@@ -1,3 +1,3 @@
 # SetCountDown
 
-live: https://arek1997.github.io/SetCountDown/
+LIVE: https://arek1997.github.io/SetCountDown/
