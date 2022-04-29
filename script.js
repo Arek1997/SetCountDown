@@ -8,9 +8,6 @@ const input_hour = document.querySelector(".input-hour");
 const input_min = document.querySelector(".input-min");
 const input_sec = document.querySelector(".input-sec");
 
-// const defaultTime = "00:00:00";
-// timer.textContent = defaultTime;
-
 const counter = {
   hour: 0,
   min: 0,
@@ -21,7 +18,7 @@ let time = 0;
 let running = false;
 let counterTimer;
 
-const startCounting = function () {
+const counting = function () {
   const tick = function () {
     if (time >= 0 && !running) {
       const hour = String(Math.floor(time / 3600)).padStart(2, 0);
@@ -47,23 +44,13 @@ const startCounting = function () {
   tick();
   counterTimer = setInterval(tick, 1000);
 
-  counter.hour = 0;
-  counter.min = 0;
-  counter.sec = 0;
+  // counter.hour = 0;
+  // counter.min = 0;
+  // counter.sec = 0;
+  counter.hour = counter.min = counter.sec = 0;
 };
 
-const reset = function () {
-  if (running === true) running = false;
-  time = 0;
-  clearInterval(counterTimer);
-  timer.textContent = "00:00:00";
-  stopBtn.textContent = "Stop";
-  input_hour.value = input_min.value = input_sec.value = "";
-  goBtn.disabled = false;
-  goBtn.classList.remove("disable");
-};
-
-goBtn.addEventListener("click", function () {
+const start = function () {
   if (input_hour.value >= 0) {
     counter.hour = Math.trunc(+`${input_hour.value}`);
   } else if (input_hour.value < 0) {
@@ -82,28 +69,42 @@ goBtn.addEventListener("click", function () {
 
   clearInterval(counterTimer);
 
-  // && inputHour.value <= 60
-  // && inputMin.value <= 60
-  // && inputSec.value <= 60
   reset();
-  startCounting();
+  counting();
+
+  // Switch off goBtn if timer counting down.
   if (timer.textContent !== "00:00:00") {
     goBtn.disabled = true;
     goBtn.classList.add("disable");
   }
-});
+};
 
+// Reset timer
+const reset = function () {
+  if (running === true) running = false;
+  // running = running === true ? false : "";
+  time = 0;
+  clearInterval(counterTimer);
+  timer.textContent = "00:00:00";
+  stopBtn.textContent = "Stop";
+  input_hour.value = input_min.value = input_sec.value = "";
+  goBtn.disabled = false;
+  goBtn.classList.remove("disable");
+};
+
+// Start timer
+goBtn.addEventListener("click", start);
+
+// Stop timer
 stopBtn.addEventListener("click", function () {
   if (time > 0) {
     running = !running;
     stopBtn.textContent = "Start";
     if (!running) {
-      running = false;
+      // running = false;
       stopBtn.textContent = "Stop";
     }
   }
 });
 
-resetBtn.addEventListener("click", function () {
-  reset();
-});
+resetBtn.addEventListener("click", reset);
