@@ -27,13 +27,17 @@ body {
 }
 
 .options {
-  display: flex;
   gap: 2rem;
   margin-top: 6.25rem;
 }
 .inputs {
-  display: flex;
   gap: 0.625rem;
+}
+
+.flex-jcc-fww {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .input {
